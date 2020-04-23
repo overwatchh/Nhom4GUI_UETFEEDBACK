@@ -6,7 +6,7 @@
 3. Chuyển đến thư mục của dự án \
 `cd Nhom4GUI_UETFEEDBACK/AwesomeProject`
 4. Cài node_module \
-`sudo npm node install`
+`sudo npm install`
 5. Chạy Server \
 `sudo npx react-native start`
 6. Cài đặt ứng dụng lên máy ảo \

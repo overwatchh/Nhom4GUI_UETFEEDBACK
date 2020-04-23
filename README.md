@@ -12,3 +12,4 @@
 6. Cài đặt ứng dụng lên máy ảo \
 `sudo npx react-native run-android`
  > Thư viện dùng để tạo di chuyển giữa các tab : [React Navigation](https://reactnavigation.org/)
+ > Thư viện icon : [react-native-vector-icons](https://github.com/oblador/react-native-vector-icons)

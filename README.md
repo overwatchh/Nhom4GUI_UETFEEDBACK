@@ -1,3 +1,4 @@
+**[Ảnh demo](https://scontent-hkg4-1.xx.fbcdn.net/v/t1.15752-9/94977233_220818582537595_2238672598332342272_n.png?_nc_cat=104&_nc_sid=b96e70&_nc_ohc=210_3j5aSRQAX-gDc6y&_nc_ht=scontent-hkg4-1.xx&oh=e1f52364178ee5544aec7408fcd44603&oe=5ECBBF0E)** \
 **Cài đặt môi trường [React-native](https://reactnative.dev/docs/environment-setup)** \
 **Chạy dự án**
 1. Chạy máy ảo.

@@ -112,108 +112,153 @@
 // });
 
 // export default App;
+//###############################
+// import React from 'react';
+// import {View,Text,Button,TextInput,Image} from 'react-native';
+// import {NavigationContainer} from '@react-navigation/native';
+// import {createStackNavigator} from '@react-navigation/stack';
+// import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+// import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+// import {Profile} from './components/profile';
+
+// //#################################
+// function LoginScreen({navigation}){
+//   return(
+//     <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+//       <Button 
+//         title="Đăng nhập"
+//         onPress={()=>navigation.navigate('Home')}
+//       />
+//     </View>
+//   );
+// }
+// function HomeScreen(){
+//   return(
+//   <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+//     <Text>
+//       Trang chủ
+//     </Text>
+//   </View>
+//   );
+// }
+// function ClassScreen(){
+//   return(
+//     <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+//     <Text>
+//       Lớp học
+//     </Text>
+//   </View>
+//   );
+// }
+// function StatisticScreen(){
+//   return(
+//     <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+//     <Text>
+//       Thống kê
+//     </Text>
+//   </View>
+//   );
+// }
+// function ProfileScreen({navigation}){
+//   return(
+//     <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+//     <Text>
+//       Hồ sơ
+//     </Text>
+//     <Profile/>
+//     <Button
+//     title="Đăng xuất"
+//     onPress={()=>navigation.navigate('Login')}
+//     />
+//   </View>
+//   );
+// }
+
+// function Home(){
+//   const Tab = createBottomTabNavigator();
+//   return(
+//       <Tab.Navigator
+//       tabBarOptions={{
+//         activeTintColor:"#004683",
+//         inactiveTintColor:"gray",
+//         labelStyle:{fontSize:12}
+//       }}
+//       >
+//         <Tab.Screen name="Home" component={HomeScreen} 
+//         options={
+//           {title:"Trang chủ",
+//           tabBarIcon:()=>(<MaterialCommunityIcons name="home" size={25} color="#004683" />),
+//             }
+//           }/>
+//         <Tab.Screen name="Class" component={ClassScreen} 
+//         options={{
+//           title:"Lớp học",
+//           tabBarIcon:()=>(<MaterialCommunityIcons name="book-open" size={25} color="#004683" />),
+//         }}/>
+//         <Tab.Screen name="Statistic" component={StatisticScreen} 
+//         options={{
+//           title:"Thống kê",
+//           tabBarIcon:()=>(<MaterialCommunityIcons name="chart-line" size={25} color="#004683" />),
+//         }}/>
+//         <Tab.Screen name="Profile" component={ProfileScreen} 
+//         options={{
+//           title:"Hồ sơ",
+//           tabBarIcon:()=>(<MaterialCommunityIcons name="account" size={25} color="#004683" />),
+//         }}/>
+//       </Tab.Navigator>
+//   );
+// }
+// const Stack = createStackNavigator();
+// function App() {
+//   return (
+//     <NavigationContainer>
+//       <Stack.Navigator initialRouteName="Login" mode="modal"> 
+//         <Stack.Screen name="Login" component={LoginScreen} options={{title:"UETFeedBack"}}/>
+//         <Stack.Screen name="Home" component={Home} options={{headerLeft:null,title:null}}/>
+//       </Stack.Navigator>
+//     </NavigationContainer>
+//   );
+// }
+
+// export default App;
+
+// const DATA={
+//  users:[
+//    {name:"Nguyễn Đăng Tuấn",email:"emailcuatuan@gmail.com",password:"admin"},
+//    {name:"Bùi Anh Thi",email:"emailcuathi@gmail.com",password:"admin"},
+//    {name:"Nguyễn Đức Thịnh",email:"emailcuathinh@gmail.com",password:"admin"},
+//    {name:"Đạt x2",email:"emailcuadat@gmail.com",password:"admin"},
+//    {name:"Lê Công Dũng",email:"emailcuadung@gmail.com",password:"admin"},
+//  ],
+//  class:[
+//   {classCode:"INT3306",className:"THiết kế giao diện người dùng",everageStarRate:"4",numOfRate:"20"},
+//   {classCode:"INT3307",className:"Phân tích thiết kế hướng đối tượng",everageStarRate:"4",numOfRate:"20"},
+//   {classCode:"INT3308",className:"Đại số 1",everageStarRate:"4",numOfRate:"20"},
+//   {classCode:"INT3309",className:"Đại số 2",everageStarRate:"4",numOfRate:"20"},
+//   {classCode:"INT33010",className:"Giải tích 1",everageStarRate:"4",numOfRate:"20"},
+//   {classCode:"INT33011",className:"Giải tích 2",everageStarRate:"4",numOfRate:"20"},
+//  ],
+// }
+//Test area
 import React from 'react';
-import {View,Text,Button,TextInput,Image} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
-function LoginScreen({navigation}){
-  return(
-    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-      <Button 
-        title="Đăng nhập"
-        onPress={()=>navigation.navigate('Home')}
-      />
+import {View,StyleSheet,TextInput,Text,Image,ScrollView} from 'react-native';
+import HomeScreen from './components/home';
+import Users from './components/profile';
+function App(){
+    const [filterText,setFilterText] = React.useState("hello world");
+return(
+    <View style={styles.container}>
+        <Users />
+        {/* <HomeScreen /> */}
     </View>
-  );
-}
-function HomeScreen(){
-  return(
-  <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-    <Text>
-      Trang chủ
-    </Text>
-  </View>
-  );
-}
-function ClassScreen(){
-  return(
-    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-    <Text>
-      Lớp học
-    </Text>
-  </View>
-  );
-}
-function StatisticScreen(){
-  return(
-    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-    <Text>
-      Thống kê
-    </Text>
-  </View>
-  );
-}
-function ProfileScreen({navigation}){
-  return(
-    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-    <Text>
-      Hồ sơ
-    </Text>
-    <Button
-    title="Đăng xuất"
-    onPress={()=>navigation.navigate('Login')}
-    />
-  </View>
-  );
+);
 }
 
-function Home(){
-  const Tab = createBottomTabNavigator();
-  return(
-      <Tab.Navigator
-      tabBarOptions={{
-        activeTintColor:"#004683",
-        inactiveTintColor:"gray",
-        labelStyle:{fontSize:12}
-      }}
-      >
-        <Tab.Screen name="Home" component={HomeScreen} 
-        options={
-          {title:"Trang chủ",
-          tabBarIcon:()=>(<MaterialCommunityIcons name="home" size={25} color="#004683" />),
-            }
-          }/>
-        <Tab.Screen name="Class" component={ClassScreen} 
-        options={{
-          title:"Lớp học",
-          tabBarIcon:()=>(<MaterialCommunityIcons name="book-open" size={25} color="#004683" />),
-        }}/>
-        <Tab.Screen name="Statistic" component={StatisticScreen} 
-        options={{
-          title:"Thống kê",
-          tabBarIcon:()=>(<MaterialCommunityIcons name="chart-line" size={25} color="#004683" />),
-        }}/>
-        <Tab.Screen name="Profile" component={ProfileScreen} 
-        options={{
-          title:"Hồ sơ",
-          tabBarIcon:()=>(<MaterialCommunityIcons name="account" size={25} color="#004683" />),
-        }}/>
-      </Tab.Navigator>
-  );
-}
-const Stack = createStackNavigator();
-function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login" mode="modal"> 
-        <Stack.Screen name="Login" component={LoginScreen} options={{title:"UETFeedBack"}}/>
-        <Stack.Screen name="Home" component={Home} options={{headerLeft:null,title:null}}/>
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
+const styles = StyleSheet.create({
+    container:{
+        flex:1,
+        backgroundColor:'#004683'
+    }
+});
 
 export default App;

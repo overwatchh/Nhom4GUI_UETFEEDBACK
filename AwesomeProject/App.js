@@ -125,7 +125,7 @@
 // function LoginScreen({navigation}){
 //   return(
 //     <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-//       <Button 
+//       <Button
 //         title="Đăng nhập"
 //         onPress={()=>navigation.navigate('Home')}
 //       />
@@ -184,23 +184,23 @@
 //         labelStyle:{fontSize:12}
 //       }}
 //       >
-//         <Tab.Screen name="Home" component={HomeScreen} 
+//         <Tab.Screen name="Home" component={HomeScreen}
 //         options={
 //           {title:"Trang chủ",
 //           tabBarIcon:()=>(<MaterialCommunityIcons name="home" size={25} color="#004683" />),
 //             }
 //           }/>
-//         <Tab.Screen name="Class" component={ClassScreen} 
+//         <Tab.Screen name="Class" component={ClassScreen}
 //         options={{
 //           title:"Lớp học",
 //           tabBarIcon:()=>(<MaterialCommunityIcons name="book-open" size={25} color="#004683" />),
 //         }}/>
-//         <Tab.Screen name="Statistic" component={StatisticScreen} 
+//         <Tab.Screen name="Statistic" component={StatisticScreen}
 //         options={{
 //           title:"Thống kê",
 //           tabBarIcon:()=>(<MaterialCommunityIcons name="chart-line" size={25} color="#004683" />),
 //         }}/>
-//         <Tab.Screen name="Profile" component={ProfileScreen} 
+//         <Tab.Screen name="Profile" component={ProfileScreen}
 //         options={{
 //           title:"Hồ sơ",
 //           tabBarIcon:()=>(<MaterialCommunityIcons name="account" size={25} color="#004683" />),
@@ -212,7 +212,7 @@
 // function App() {
 //   return (
 //     <NavigationContainer>
-//       <Stack.Navigator initialRouteName="Login" mode="modal"> 
+//       <Stack.Navigator initialRouteName="Login" mode="modal">
 //         <Stack.Screen name="Login" component={LoginScreen} options={{title:"UETFeedBack"}}/>
 //         <Stack.Screen name="Home" component={Home} options={{headerLeft:null,title:null}}/>
 //       </Stack.Navigator>
@@ -241,24 +241,44 @@
 // }
 //Test area
 import React from 'react';
-import {View,StyleSheet,TextInput,Text,Image,ScrollView} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  Text,
+  Image,
+  ScrollView,
+} from 'react-native';
 import HomeScreen from './components/home';
 import Users from './components/profile';
-function App(){
-    const [filterText,setFilterText] = React.useState("hello world");
-return(
+import Login from './components/login/login';
+import Classes from './components/class';
+
+const Stack = createStackNavigator();
+function App() {
+  return (
     <View style={styles.container}>
-        <Users />
-        {/* <HomeScreen /> */}
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Users" component={Users} />
+          <Stack.Screen name="Classes" component={Classes} />
+        </Stack.Navigator>
+      </NavigationContainer>
+      {/*<UsersStack />*/}
+      {/*<Users />*/}
+      {/* <HomeScreen /> */}
     </View>
-);
+  );
 }
 
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        backgroundColor:'#004683'
-    }
+  container: {
+    flex: 1,
+    backgroundColor: '#3498db',
+  },
 });
 
 export default App;

@@ -255,6 +255,7 @@ import HomeScreen from './components/home';
 import Users from './components/profile';
 import Login from './components/login/login';
 import Classes from './components/class';
+import Rate from './components/rate';
 
 const Stack = createStackNavigator();
 function App() {
@@ -265,6 +266,7 @@ function App() {
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Users" component={Users} />
           <Stack.Screen name="Classes" component={Classes} />
+          <Stack.Screen name="Rate" component={Rate} />
         </Stack.Navigator>
       </NavigationContainer>
       {/*<UsersStack />*/}

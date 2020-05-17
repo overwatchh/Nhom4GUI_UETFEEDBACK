@@ -7,7 +7,9 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
-  Model,
+  Modal,
+  Alert,
+  TouchableHighlight,
 } from 'react-native';
 import {SearchBox} from './base';
 import {Card, CardItem, Body} from 'native-base';
@@ -24,7 +26,7 @@ const CLASSDATA = [
     {
       id: 2,
       giangVien: 'GV2',
-      yourRate: 5,
+      yourRate: 3.5,
       displayName: 'Subject 2',
     },
     {
@@ -107,8 +109,13 @@ const CLASSDATA = [
       fontWeight: '700',
     },
   }),
-  renderUsers = filterText => {
+  renderUsers = (filterText, navigation) => {
     let users = [];
+    let modalVisible = false;
+    function setModalVisible(bo) {
+      modalVisible = bo;
+      alert(modalVisible);
+    }
     CLASSDATA.filter(item => {
       if (item.displayName.indexOf(filterText) >= 0) {
         users.push(
@@ -125,7 +132,7 @@ const CLASSDATA = [
                   </View>
                   <View>
                     <TouchableOpacity
-                      onPress={{}}
+                      onPress={() => navigation.navigate('Rate', {item})}
                       style={styles.buttonContainer}>
                       <Text style={styles.buttonText}>Đánh giá</Text>
                     </TouchableOpacity>
@@ -173,7 +180,7 @@ const CLASSDATA = [
     return users;
   };
 
-function Classes() {
+function Classes({navigation}) {
   const [filterText, setFilterText] = React.useState('');
   return (
     <>
@@ -182,7 +189,7 @@ function Classes() {
         onChangeText={filterText => setFilterText(filterText)}
       />
       <Animated.ScrollView scrollEventThrottle={1}>
-        {renderUsers(filterText)}
+        {renderUsers(filterText, navigation)}
       </Animated.ScrollView>
     </>
   );

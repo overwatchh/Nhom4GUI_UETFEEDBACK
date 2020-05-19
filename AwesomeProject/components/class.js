@@ -15,109 +15,123 @@ import {SearchBox} from './base';
 import {Card, CardItem, Body} from 'native-base';
 import {Rating, AirbnbRating} from 'react-native-ratings';
 import {Dialog} from 'react-native-simple-dialogs';
-//Sampe data
-const CLASSDATA = [
-    {
-      id: 1,
-      giangVien: 'GV1',
-      yourRate: 5,
-      displayName: 'Subject 1',
-    },
-    {
-      id: 2,
-      giangVien: 'GV2',
-      yourRate: 3.5,
-      displayName: 'Subject 2',
-    },
-    {
-      id: 3,
-      giangVien: 'GV3',
-      yourRate: 5,
-      displayName: 'Subject 3',
-    },
-    {
-      id: 4,
-      giangVien: 'GV4',
-      yourRate: 5,
-      displayName: 'Subject 4',
-    },
-    {
-      id: 5,
-      giangVien: 'GV5',
-      yourRate: 4,
-      displayName: 'Subject 5',
-    },
-  ],
-  styles = StyleSheet.create({
-    cardContainerAll: {
-      flex: 1,
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    card: {
-      flex: 0.9,
-      marginBottom: 20,
-      borderWidth: 1,
-    },
-    container: {
-      // backgroundColor:'yellow'
-      marginTop: 10,
-    },
-    infoRow: {
-      flexDirection: 'row',
-      marginLeft: 50,
-      marginBottom: 5,
-    },
-    infoTitle: {
-      fontSize: 15,
-      fontWeight: '700',
-      paddingRight: 3,
-    },
-    logo: {
-      width: 35,
-      height: 35,
-    },
-    infoData: {},
-    header: {
-      height: 40,
-      backgroundColor: '#3498db',
-      textAlign: 'center',
-      alignItems: 'center',
-    },
-    titleHeader: {
-      color: 'white',
-    },
-    viewTitleHeader: {
-      flex: 1,
-      textAlign: 'center',
-      alignItems: 'center',
-    },
-    ratingContainer: {
-      flex: 1,
-    },
-    buttonContainer: {
-      backgroundColor: '#228B22',
-      paddingVertical: 4,
-      height: 30,
-      width: 80,
-      textAlign: 'center',
-      alignItems: 'center',
-    },
-    buttonText: {
-      color: 'white',
-      fontWeight: '700',
-    },
-  }),
-  renderUsers = (filterText, navigation) => {
+import {SearchBar} from 'react-native-elements';
+
+const styles = StyleSheet.create({
+  cardContainerAll: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  card: {
+    flex: 0.9,
+    marginBottom: 20,
+    borderWidth: 1,
+  },
+  container: {
+    // backgroundColor:'yellow'
+    marginTop: 10,
+  },
+  infoRow: {
+    flexDirection: 'row',
+    marginLeft: 50,
+    marginBottom: 5,
+  },
+  infoTitle: {
+    fontSize: 15,
+    fontWeight: '700',
+    paddingRight: 3,
+  },
+  logo: {
+    width: 35,
+    height: 35,
+  },
+  infoData: {},
+  header: {
+    height: 40,
+    backgroundColor: '#3498db',
+    textAlign: 'center',
+    alignItems: 'center',
+  },
+  titleHeader: {
+    color: 'white',
+  },
+  viewTitleHeader: {
+    flex: 1,
+    textAlign: 'center',
+    alignItems: 'center',
+  },
+  ratingContainer: {
+    flex: 1,
+  },
+  buttonContainer: {
+    backgroundColor: '#228B22',
+    paddingVertical: 4,
+    height: 30,
+    width: 80,
+    textAlign: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: '700',
+  },
+});
+
+export default class Classes extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      search: '',
+      data: [],
+    };
+  }
+
+  updateSearch = search => {
+    this.setState({search});
+  };
+
+  getUetClassData = async () => {
+    try {
+      let response = await fetch(
+        'https://uet-feedback-api.herokuapp.com/uetClasses',
+        {
+          method: 'get',
+          mode: 'no-cors',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(),
+        },
+      );
+      let statusCode = response.status;
+      let responseJson = await response.json();
+      if (statusCode === 200) {
+        this.setState({
+          data: responseJson,
+        });
+      } else {
+        alert('Username or Password is invalid');
+      }
+    } catch (e) {
+      alert('Username or Password is invalid');
+    }
+  };
+
+  render() {
+    const {search, data} = this.state;
     let users = [];
     let modalVisible = false;
     function setModalVisible(bo) {
       modalVisible = bo;
       alert(modalVisible);
     }
-    CLASSDATA.filter(item => {
-      if (item.displayName.indexOf(filterText) >= 0) {
+    this.getUetClassData();
+    for (let item of data) {
+      if (item.displayName.indexOf(search) < 0) {
+      } else {
         users.push(
           <View style={styles.cardContainerAll}>
             <View style={{flexDirection: 'row'}}>
@@ -132,7 +146,9 @@ const CLASSDATA = [
                   </View>
                   <View>
                     <TouchableOpacity
-                      onPress={() => navigation.navigate('Rate', {item})}
+                      onPress={() =>
+                        this.props.navigation.navigate('Rate', {item: item})
+                      }
                       style={styles.buttonContainer}>
                       <Text style={styles.buttonText}>Đánh giá</Text>
                     </TouchableOpacity>
@@ -161,7 +177,7 @@ const CLASSDATA = [
                           <AirbnbRating
                             count={5}
                             reviews={['Terrible', 'Bad', 'OK', 'Good', 'Great']}
-                            defaultRating={item.yourRate}
+                            defaultRating={item.rateAverage}
                             size={15}
                             showRating={false}
                             isDisabled={true}
@@ -176,22 +192,21 @@ const CLASSDATA = [
           </View>,
         );
       }
-    });
-    return users;
-  };
-
-function Classes({navigation}) {
-  const [filterText, setFilterText] = React.useState('');
-  return (
-    <>
-      <SearchBox
-        title={'Nhập tên môn hoc...'}
-        onChangeText={filterText => setFilterText(filterText)}
-      />
-      <Animated.ScrollView scrollEventThrottle={1}>
-        {renderUsers(filterText, navigation)}
-      </Animated.ScrollView>
-    </>
-  );
+    }
+    return (
+      <>
+        <SearchBar
+          round
+          lightTheme
+          noIcon
+          placeholder="Type Subject ID Here..."
+          onChangeText={this.updateSearch}
+          value={search}
+        />
+        <Animated.ScrollView scrollEventThrottle={1}>
+          {users}
+        </Animated.ScrollView>
+      </>
+    );
+  }
 }
-export default Classes;

@@ -37,6 +37,9 @@ const styles = StyleSheet.create({
   },
 });
 
+let username;
+let password;
+
 function LoginForm({navigation}) {
   return (
     <View behavior="padding" style={styles.container}>
@@ -44,16 +47,51 @@ function LoginForm({navigation}) {
         placeholder="Username or Email"
         placeholderTextColor="rgba(255,255,255,0.7)"
         secureTextEntry
+        onChangeText={data => {
+          username = data;
+        }}
+        value={username}
         style={styles.input}
       />
       <TextInput
         placeholder="Password"
         placeholderTextColor="rgba(255,255,255,0.7)"
         secureTextEntry
+        onChangeText={data => {
+          password = data;
+        }}
+        value={password}
         style={styles.input}
       />
       <TouchableOpacity
-        onPress={() => navigation.navigate('Classes')}
+        onPress={async () => {
+          try {
+            let response = await fetch(
+              'https://uet-feedback-api.herokuapp.com/login',
+              {
+                method: 'post',
+                mode: 'no-cors',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  username: username,
+                  password: password,
+                }),
+              },
+            );
+            let statusCode = response.status;
+            let responseJson = await response.json();
+            if (statusCode === 200) {
+              navigation.navigate('Classes');
+            } else {
+              alert('Username or Password is invalid');
+            }
+          } catch (e) {
+            alert('Username or Password is invalid');
+          }
+        }}
         style={styles.buttonContainer}>
         <Text style={styles.buttonText}>LOGIN</Text>
       </TouchableOpacity>

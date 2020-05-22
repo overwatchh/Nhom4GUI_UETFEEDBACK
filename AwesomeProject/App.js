@@ -256,6 +256,7 @@ import Users from './components/profile';
 import Login from './components/login/login';
 import Classes from './components/class';
 import Rate from './components/rate';
+import Comment from './components/comment';
 
 const Stack = createStackNavigator();
 function App() {
@@ -267,6 +268,7 @@ function App() {
           <Stack.Screen name="Users" component={Users} />
           <Stack.Screen name="Classes" component={Classes} />
           <Stack.Screen name="Rate" component={Rate} />
+          <Stack.Screen name="Comment" component={Comment} />
         </Stack.Navigator>
       </NavigationContainer>
       {/*<UsersStack />*/}

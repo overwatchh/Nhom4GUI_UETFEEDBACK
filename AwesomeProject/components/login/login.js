@@ -18,9 +18,10 @@ const styles = StyleSheet.create({
   safeAreaContainer: {
     flex: 1,
     backgroundColor: '#3498db',
+    textAlign: 'center',
+    alignItems: 'center',
   },
   loginContainer: {
-    marginTop: 150,
     backgroundColor: '#3498db',
   },
   logoContainer: {
@@ -52,6 +53,10 @@ const styles = StyleSheet.create({
 });
 
 function Login({navigation}) {
+  var inputs = {};
+  function focusTheField(id) {
+    this.inputs[id].focus();
+  }
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
       <KeyboardAvoidingView

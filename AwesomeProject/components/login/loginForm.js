@@ -10,9 +10,7 @@ import {
   Alert,
   KeyboardAvoidingView,
 } from 'react-native';
-import Users from '../profile';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {AsyncStorage} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -37,66 +35,95 @@ const styles = StyleSheet.create({
   },
 });
 
-let username;
-let password;
+export default class LoginForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      focusDescriptionInput: false,
+    };
+  }
 
-function LoginForm({navigation}) {
-  return (
-    <View behavior="padding" style={styles.container}>
-      <TextInput
-        placeholder="Username or Email"
-        placeholderTextColor="rgba(255,255,255,0.7)"
-        secureTextEntry
-        onChangeText={data => {
-          username = data;
-        }}
-        value={username}
-        style={styles.input}
-      />
-      <TextInput
-        placeholder="Password"
-        placeholderTextColor="rgba(255,255,255,0.7)"
-        secureTextEntry
-        onChangeText={data => {
-          password = data;
-        }}
-        value={password}
-        style={styles.input}
-      />
-      <TouchableOpacity
-        onPress={async () => {
-          try {
-            let response = await fetch(
-              'https://uet-feedback-api.herokuapp.com/login',
-              {
-                method: 'post',
-                mode: 'no-cors',
-                headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  username: username,
-                  password: password,
-                }),
-              },
-            );
-            let statusCode = response.status;
-            let responseJson = await response.json();
-            if (statusCode === 200) {
-              navigation.navigate('Classes');
-            } else {
-              alert('Username or Password is invalid');
-            }
-          } catch (e) {
-            alert('Username or Password is invalid');
-          }
-        }}
-        style={styles.buttonContainer}>
-        <Text style={styles.buttonText}>LOGIN</Text>
-      </TouchableOpacity>
-    </View>
-  );
+  inputs = {};
+  focusTheField = id => {
+    this.inputs[id].focus();
+  };
+
+  login = async (username, password) => {
+    try {
+      let response = await fetch(
+        'https://uet-feedback-api.herokuapp.com/login',
+        {
+          method: 'post',
+          mode: 'no-cors',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: username,
+            password: password,
+          }),
+        },
+      );
+      let statusCode = response.status;
+      let responseJson = await response.json();
+      if (statusCode === 200) {
+        try {
+          await AsyncStorage.setItem('username', username);
+        } catch (error) {
+          alert('Cannot save user');
+        }
+        this.props.navigation.navigate('Classes');
+      } else {
+        alert('Username or Password is invalid');
+      }
+    } catch (e) {
+      alert('Username or Password is invalid');
+    }
+  };
+
+  render() {
+    let username;
+    let password;
+    return (
+      <View behavior="padding" style={styles.container}>
+        <TextInput
+          placeholder="Username or Email"
+          placeholderTextColor="rgba(255,255,255,0.7)"
+          secureTextEntry
+          onChangeText={data => {
+            username = data;
+          }}
+          value={username}
+          label={'Field 1'}
+          blurOnSubmit={false}
+          returnKeyType={'next'}
+          onSubmitEditing={() => {
+            this.focusTheField('field2');
+          }}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Password"
+          placeholderTextColor="rgba(255,255,255,0.7)"
+          secureTextEntry
+          onChangeText={data => {
+            password = data;
+          }}
+          value={password}
+          ref={input => {
+            this.inputs.field2 = input;
+          }}
+          label={'Field 2'}
+          onSubmitEditing={() => this.login(username, password)}
+          style={styles.input}
+        />
+        <TouchableOpacity
+          onPress={() => this.login(username, password)}
+          style={styles.buttonContainer}>
+          <Text style={styles.buttonText}>LOGIN</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 }
-
-export default LoginForm;

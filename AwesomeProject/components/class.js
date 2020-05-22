@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
   },
   ratingContainer: {
     flex: 1,
+    marginLeft: '10%',
   },
   buttonContainer: {
     backgroundColor: '#228B22',
@@ -113,10 +114,10 @@ export default class Classes extends React.Component {
           data: responseJson,
         });
       } else {
-        alert('Username or Password is invalid');
+        alert('Cannot get Uet Class Data');
       }
     } catch (e) {
-      alert('Username or Password is invalid');
+      alert('Cannot get Uet Class Data');
     }
   };
 

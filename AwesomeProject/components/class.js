@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
   },
   card: {
     flex: 0.9,
-    marginBottom: 20,
-    borderWidth: 1,
+    marginTop: 10,
+    marginBottom: 10,
   },
   container: {
     // backgroundColor:'yellow'
@@ -53,6 +53,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#3498db',
     textAlign: 'center',
     alignItems: 'center',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
   },
   titleHeader: {
     color: 'white',
@@ -64,7 +66,7 @@ const styles = StyleSheet.create({
   },
   ratingContainer: {
     flex: 1,
-    marginLeft: '10%',
+    marginLeft: 0,
   },
   buttonContainer: {
     backgroundColor: '#228B22',
@@ -77,6 +79,11 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontWeight: '700',
+  },
+  cardBody: {
+    backgroundColor: 'white',
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
   },
 });
 
@@ -155,7 +162,7 @@ export default class Classes extends React.Component {
                     </TouchableOpacity>
                   </View>
                 </CardItem>
-                <CardItem cardBody style={{backgroundColor: 'white'}}>
+                <CardItem cardBody style={styles.cardBody}>
                   <Body>
                     <View style={styles.container}>
                       <View style={styles.infoRow}>

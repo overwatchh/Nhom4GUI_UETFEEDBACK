@@ -10,15 +10,15 @@ import {
 } from 'react-native';
 import {Body, CardItem} from 'native-base';
 import {AirbnbRating} from 'react-native-ratings';
+import {Icon} from 'react-native-elements';
 
 const styles = StyleSheet.create({
   rateContainer: {
     flex: 1,
+    marginTop: 30,
   },
   contentContainer: {
-    paddingRight: 10,
-    marginLeft: -50,
-    marginTop: 50,
+    marginLeft: 30,
   },
   infoHeader: {
     fontSize: 16,
@@ -72,21 +72,43 @@ const styles = StyleSheet.create({
     marginLeft: '10%',
   },
   usernameText: {
-    color: 'blue',
+    color: '#4169E1',
+    fontSize: 16,
+    marginLeft: 10,
+    marginTop: 5,
+    fontWeight: '700',
   },
   header: {
     marginLeft: 20,
     marginRight: 20,
     marginBottom: 10,
     borderRadius: 15,
-    textAlign: 'center',
-    alignItems: 'center',
   },
   grid: {
-    justifyContent: 'center',
     flexDirection: 'column',
-    flexWrap: 'wrap',
     flex: 1,
+  },
+  avatar: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+  },
+  ratingContainer: {
+    marginLeft: 20,
+    flexDirection: 'row',
+  },
+  itemContainer: {
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
+  threedot: {
+    position: 'absolute',
+    right: 0,
+  },
+  date: {
+    marginLeft: 20,
+    fontSize: 13,
+    color: 'grey',
   },
 });
 
@@ -128,7 +150,6 @@ export default class Comment extends React.Component {
 
   render() {
     const {item} = this.props.route.params;
-    const data = this.state;
     let shower = [];
     this.getCommentData(item.id);
     Object.keys(this.state.data).map(i => {
@@ -136,21 +157,35 @@ export default class Comment extends React.Component {
         <View>
           <CardItem header style={styles.header}>
             <View style={styles.grid}>
-              <View>
+              <View style={styles.itemContainer}>
+                <Image
+                  style={styles.avatar}
+                  source={{
+                    uri: this.state.data[i].avatarUrl,
+                  }}
+                />
+                <Text style={styles.usernameText}>
+                  {this.state.data[i].name}
+                </Text>
+                <View style={styles.threedot}>
+                  <Icon name={'more-vert'} />
+                </View>
+              </View>
+              <View style={styles.ratingContainer}>
                 <AirbnbRating
                   count={5}
                   reviews={['Terrible', 'Bad', 'OK', 'Good', 'Great']}
                   defaultRating={this.state.data[i].ratingValue}
-                  size={10}
+                  size={12}
                   showRating={false}
                   isDisabled={true}
                 />
-              </View>
-              <View>
-                <Text style={styles.usernameText}>
-                  {this.state.data[i].username + ':'}
+                <Text style={styles.date}>
+                  {this.state.data[i].lastUpdateTime.substring(0, 10)}
                 </Text>
-                <Text>{this.state.data[i].content}</Text>
+              </View>
+              <View style={styles.contentContainer}>
+                <Text style={{fontSize: 16}}>{this.state.data[i].content}</Text>
               </View>
             </View>
           </CardItem>

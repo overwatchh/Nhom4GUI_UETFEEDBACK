@@ -9,7 +9,7 @@ import {
   AsyncStorage,
 } from 'react-native';
 import {Rating, AirbnbRating} from 'react-native-ratings';
-import {CardItem} from 'native-base';
+import {AutoGrowingTextInput} from 'react-native-autogrow-textinput';
 
 const styles = StyleSheet.create({
   rateContainer: {
@@ -59,16 +59,18 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   input: {
-    height: 100,
     backgroundColor: 'rgba(255,255,255,0.2)',
     marginBottom: 20,
     marginLeft: 20,
     marginRight: 20,
     marginTop: 20,
-    marginHorizontal: 10,
-    borderWidth: 4,
-    borderColor: 'yellow',
+    borderWidth: 3,
+    borderColor: 'green',
     width: '85%',
+    borderRadius: 10,
+    padding: 20,
+    fontSize: 18,
+    // height: Math.max(35, this.getState('height')),
   },
   starRate: {
     marginLeft: '10%',
@@ -79,6 +81,10 @@ const styles = StyleSheet.create({
   commentText: {
     color: 'green',
   },
+  ratingContainer: {
+    flex: 1,
+    marginLeft: 0,
+  },
 });
 
 export default class Rate extends React.Component {
@@ -87,6 +93,7 @@ export default class Rate extends React.Component {
     this.state = {
       ratingValue: props.route.params.item.rateAverage,
       comment: '',
+      height: 0,
     };
   }
 
@@ -97,8 +104,9 @@ export default class Rate extends React.Component {
   };
 
   rate = async (id, value, comment) => {
-    alert(comment);
     const username = await AsyncStorage.getItem('username');
+    const name = await AsyncStorage.getItem('name');
+    const avatarUrl = await AsyncStorage.getItem('avatarUrl');
     try {
       let response = await fetch(
         'https://uet-feedback-api.herokuapp.com/comments',
@@ -114,6 +122,8 @@ export default class Rate extends React.Component {
             content: comment,
             username: username,
             ratingValue: value,
+            name: name,
+            avatarUrl: avatarUrl,
           }),
         },
       );
@@ -170,9 +180,8 @@ export default class Rate extends React.Component {
             </TouchableOpacity>
           </View>
           <View style={styles.infoRow}>
-            <TextInput
+            <AutoGrowingTextInput
               placeholder="Thêm nhận xét..."
-              secureTextEntry
               onChangeText={data => {
                 this.setState({
                   comment: data,
@@ -180,12 +189,13 @@ export default class Rate extends React.Component {
               }}
               value={comment}
               multiline={true}
-              numberOfLines={5}
               style={styles.input}
             />
           </View>
           <TouchableOpacity
-            onPress={() => this.rate(item.id, this.state.ratingValue, this.state.comment)}
+            onPress={() =>
+              this.rate(item.id, this.state.ratingValue, this.state.comment)
+            }
             style={styles.buttonContainer}>
             <Text style={styles.buttonText}>ĐÁNH GIÁ</Text>
           </TouchableOpacity>

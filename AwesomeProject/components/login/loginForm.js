@@ -40,6 +40,7 @@ export default class LoginForm extends React.Component {
     super(props);
     this.state = {
       focusDescriptionInput: false,
+      user: [],
     };
   }
 
@@ -70,6 +71,14 @@ export default class LoginForm extends React.Component {
       if (statusCode === 200) {
         try {
           await AsyncStorage.setItem('username', username);
+          this.setState({
+            user: responseJson,
+          });
+          await AsyncStorage.setItem('name', this.state.user.name.toString());
+          await AsyncStorage.setItem(
+            'avatarUrl',
+            this.state.user.avatarUrl.toString(),
+          );
         } catch (error) {
           alert('Cannot save user');
         }

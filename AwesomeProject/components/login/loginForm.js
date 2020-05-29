@@ -62,7 +62,7 @@ export default class LoginForm extends React.Component {
         },
       );
       let statusCode = response.status;
-      let responseJson = await response.json();
+      // let responseJson = await response.json();
       if (statusCode === 200) {
         try {
           await AsyncStorage.setItem('username', username);

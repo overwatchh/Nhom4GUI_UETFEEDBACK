@@ -49,10 +49,10 @@ const styles = StyleSheet.create({
 
 function Login({navigation}) {
   return (
-    <SafeAreaView style={styles.safeAreaContainer}>
-      <KeyboardAvoidingView
-        KeyboardVerticalOffset={200}
-        behavior="padding"
+    <SafeAreaView style={styles.safeAreaContainer} //xử lý hiển thị toàn màn hình trên một số thiết bị có màn hình đa giác 8 cạnh như iphone X
+    >  
+      <KeyboardAvoidingView  
+        KeyboardVerticalOffset={1}
         style={styles.loginContainer}>
         <View style={styles.logoContainer}>
           <Image

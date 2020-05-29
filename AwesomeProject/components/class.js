@@ -4,17 +4,11 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
   Image,
   TouchableOpacity,
-  Modal,
-  Alert,
-  TouchableHighlight,
 } from 'react-native';
-import {SearchBox} from './base';
-import {Card, CardItem, Body} from 'native-base';
-import {Rating, AirbnbRating} from 'react-native-ratings';
-import {Dialog} from 'react-native-simple-dialogs';
+import {CardItem, Body} from 'native-base';
+import {AirbnbRating} from 'react-native-ratings';
 import {SearchBar} from 'react-native-elements';
 
 const styles = StyleSheet.create({
@@ -200,7 +194,7 @@ export default class Classes extends React.Component {
           round
           lightTheme
           noIcon
-          placeholder="Type Subject ID Here..."
+          placeholder="ID hoặc tên môn học"
           onChangeText={this.updateSearch}
           value={search}
         />

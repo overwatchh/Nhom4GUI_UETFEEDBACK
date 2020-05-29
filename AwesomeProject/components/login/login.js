@@ -4,12 +4,7 @@ import {
   Text,
   Image,
   StyleSheet,
-  TextInput,
-  Button,
-  TouchableOpacity,
-  Alert,
   KeyboardAvoidingView,
-  Platform,
   SafeAreaView,
 } from 'react-native';
 import LoginForm from './loginForm';
@@ -53,10 +48,6 @@ const styles = StyleSheet.create({
 });
 
 function Login({navigation}) {
-  var inputs = {};
-  function focusTheField(id) {
-    this.inputs[id].focus();
-  }
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
       <KeyboardAvoidingView
@@ -68,8 +59,8 @@ function Login({navigation}) {
             style={styles.loginLogo}
             source={require('../../images/app-icon.png')}
           />
-          <Text style={styles.loginTitle}>An APP made for UET Rating</Text>
-          <Text style={styles.loginTitle}>Thank for using</Text>
+          <Text style={styles.loginTitle}>Đưa tay đây nào</Text>
+          <Text style={styles.loginTitle}>Mình cùng qua môn bạn nhé</Text>
         </View>
         <View style={styles.formContainer}>
           <LoginForm navigation={navigation} />

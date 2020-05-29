@@ -2,14 +2,12 @@ import React from 'react';
 import {
   View,
   TextInput,
-  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
   AsyncStorage,
 } from 'react-native';
-import {Rating, AirbnbRating} from 'react-native-ratings';
-import {CardItem} from 'native-base';
+import {AirbnbRating} from 'react-native-ratings';
 
 const styles = StyleSheet.create({
   rateContainer: {

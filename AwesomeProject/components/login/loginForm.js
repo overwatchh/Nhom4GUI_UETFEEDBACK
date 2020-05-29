@@ -2,13 +2,9 @@ import React from 'react';
 import {
   View,
   Text,
-  Image,
   StyleSheet,
   TextInput,
-  Button,
   TouchableOpacity,
-  Alert,
-  KeyboardAvoidingView,
 } from 'react-native';
 import {AsyncStorage} from 'react-native';
 
@@ -75,10 +71,10 @@ export default class LoginForm extends React.Component {
         }
         this.props.navigation.navigate('Classes');
       } else {
-        alert('Username or Password is invalid');
+        alert('Email hoặc mật khẩu không hợp lệ');
       }
     } catch (e) {
-      alert('Username or Password is invalid');
+      alert('Email hoặc mật khẩu không hợp lệ');
     }
   };
 
@@ -88,7 +84,7 @@ export default class LoginForm extends React.Component {
     return (
       <View behavior="padding" style={styles.container}>
         <TextInput
-          placeholder="Username or Email"
+          placeholder="Tên đăng nhập hoặc email"
           placeholderTextColor="rgba(255,255,255,0.7)"
           secureTextEntry
           onChangeText={data => {
@@ -104,7 +100,7 @@ export default class LoginForm extends React.Component {
           style={styles.input}
         />
         <TextInput
-          placeholder="Password"
+          placeholder="Mật khẩu"
           placeholderTextColor="rgba(255,255,255,0.7)"
           secureTextEntry
           onChangeText={data => {
@@ -121,7 +117,7 @@ export default class LoginForm extends React.Component {
         <TouchableOpacity
           onPress={() => this.login(username, password)}
           style={styles.buttonContainer}>
-          <Text style={styles.buttonText}>LOGIN</Text>
+          <Text style={styles.buttonText}>Đăng nhập</Text>
         </TouchableOpacity>
       </View>
     );

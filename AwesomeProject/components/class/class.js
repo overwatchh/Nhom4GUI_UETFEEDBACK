@@ -9,13 +9,17 @@ import {
   TouchableOpacity,
   Modal,
   Alert,
-  TouchableHighlight,
+  TouchableHighlight, Dimensions,
 } from 'react-native';
-import {SearchBox} from './base';
+import {SearchBox} from '../base';
 import {Card, CardItem, Body} from 'native-base';
 import {Rating, AirbnbRating} from 'react-native-ratings';
 import {Dialog} from 'react-native-simple-dialogs';
 import {SearchBar} from 'react-native-elements';
+import Footer from '../footer/footer';
+
+let deviceWidth = Dimensions.get('window').width;
+let deviceHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   cardContainerAll: {
@@ -147,7 +151,7 @@ export default class Classes extends React.Component {
                 <CardItem header style={styles.header}>
                   <Image
                     style={styles.logo}
-                    source={require('../images/app-icon.png')}
+                    source={require('../../images/app-icon.png')}
                   />
                   <View style={styles.viewTitleHeader}>
                     <Text style={styles.titleHeader}>{item.displayName}</Text>
@@ -155,7 +159,7 @@ export default class Classes extends React.Component {
                   <View>
                     <TouchableOpacity
                       onPress={() =>
-                        this.props.navigation.navigate('Rate', {item: item})
+                        this.props.navigation.navigate('Đánh giá', {item: item})
                       }
                       style={styles.buttonContainer}>
                       <Text style={styles.buttonText}>Đánh giá</Text>
@@ -211,9 +215,11 @@ export default class Classes extends React.Component {
           onChangeText={this.updateSearch}
           value={search}
         />
-        <Animated.ScrollView scrollEventThrottle={1}>
-          {users}
-        </Animated.ScrollView>
+        <View style={{marginBottom: 150}}>
+          <Animated.ScrollView scrollEventThrottle={1}>
+            {users}
+          </Animated.ScrollView>
+        </View>
       </>
     );
   }

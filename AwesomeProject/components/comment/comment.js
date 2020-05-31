@@ -7,10 +7,12 @@ import {
   Text,
   TouchableOpacity,
   Animated,
+  Dimensions,
 } from 'react-native';
 import {Body, CardItem} from 'native-base';
 import {AirbnbRating} from 'react-native-ratings';
 import {Icon} from 'react-native-elements';
+import Footer from '../footer/footer';
 
 const styles = StyleSheet.create({
   rateContainer: {
@@ -211,9 +213,11 @@ export default class Comment extends React.Component {
             <Text style={styles.infoHeader}>CÁC NHẬN XÉT</Text>
           </View>
         </View>
-        <Animated.ScrollView scrollEventThrottle={1}>
-          {shower}
-        </Animated.ScrollView>
+        <View style={{marginBottom: 220}}>
+          <Animated.ScrollView scrollEventThrottle={1}>
+            {shower}
+          </Animated.ScrollView>
+        </View>
       </View>
     );
   }

@@ -82,7 +82,7 @@ export default class LoginForm extends React.Component {
         } catch (error) {
           alert('Cannot save user');
         }
-        this.props.navigation.navigate('Classes');
+        this.props.navigation.navigate('Trang chủ', {username: username});
       } else {
         alert('Username or Password is invalid');
       }

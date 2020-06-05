@@ -6,10 +6,25 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
+<<<<<<< HEAD:AwesomeProject/components/class.js
 } from 'react-native';
 import {CardItem, Body} from 'native-base';
 import {AirbnbRating} from 'react-native-ratings';
+=======
+  Modal,
+  Alert,
+  TouchableHighlight, Dimensions,
+} from 'react-native';
+import {SearchBox} from '../base';
+import {Card, CardItem, Body} from 'native-base';
+import {Rating, AirbnbRating} from 'react-native-ratings';
+import {Dialog} from 'react-native-simple-dialogs';
+>>>>>>> origin/datquocngo:AwesomeProject/components/class/class.js
 import {SearchBar} from 'react-native-elements';
+import Footer from '../footer/footer';
+
+let deviceWidth = Dimensions.get('window').width;
+let deviceHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   cardContainerAll: {
@@ -20,8 +35,8 @@ const styles = StyleSheet.create({
   },
   card: {
     flex: 0.9,
-    marginBottom: 20,
-    borderWidth: 1,
+    marginTop: 10,
+    marginBottom: 10,
   },
   container: {
     // backgroundColor:'yellow'
@@ -47,6 +62,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#3498db',
     textAlign: 'center',
     alignItems: 'center',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
   },
   titleHeader: {
     color: 'white',
@@ -58,7 +75,7 @@ const styles = StyleSheet.create({
   },
   ratingContainer: {
     flex: 1,
-    marginLeft: '10%',
+    marginLeft: 0,
   },
   buttonContainer: {
     backgroundColor: '#228B22',
@@ -71,6 +88,11 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontWeight: '700',
+  },
+  cardBody: {
+    backgroundColor: 'white',
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
   },
 });
 
@@ -134,7 +156,7 @@ export default class Classes extends React.Component {
                 <CardItem header style={styles.header}>
                   <Image
                     style={styles.logo}
-                    source={require('../images/app-icon.png')}
+                    source={require('../../images/app-icon.png')}
                   />
                   <View style={styles.viewTitleHeader}>
                     <Text style={styles.titleHeader}>{item.displayName}</Text>
@@ -142,14 +164,14 @@ export default class Classes extends React.Component {
                   <View>
                     <TouchableOpacity
                       onPress={() =>
-                        this.props.navigation.navigate('Rate', {item: item})
+                        this.props.navigation.navigate('Đánh giá', {item: item})
                       }
                       style={styles.buttonContainer}>
                       <Text style={styles.buttonText}>Đánh giá</Text>
                     </TouchableOpacity>
                   </View>
                 </CardItem>
-                <CardItem cardBody style={{backgroundColor: 'white'}}>
+                <CardItem cardBody style={styles.cardBody}>
                   <Body>
                     <View style={styles.container}>
                       <View style={styles.infoRow}>
@@ -198,9 +220,11 @@ export default class Classes extends React.Component {
           onChangeText={this.updateSearch}
           value={search}
         />
-        <Animated.ScrollView scrollEventThrottle={1}>
-          {users}
-        </Animated.ScrollView>
+        <View style={{marginBottom: 150}}>
+          <Animated.ScrollView scrollEventThrottle={1}>
+            {users}
+          </Animated.ScrollView>
+        </View>
       </>
     );
   }

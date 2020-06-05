@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
   },
   loginContainer: {
     backgroundColor: '#3498db',
+    top: '-25%',
   },
   logoContainer: {
     alignItems: 'center',
